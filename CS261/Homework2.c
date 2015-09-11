@@ -6,9 +6,8 @@
 */
 
 int main(){
-
-		int i=0;
-		for (i = 0; i <= 25; i++){
-				printf("\nSeptember is hot in Chicago this year");
-		}
+	int i;
+	for (i = 0; i <= 25; i++){
+		printf("\nSeptember is hot in Chicago this year");
+	}
 }
