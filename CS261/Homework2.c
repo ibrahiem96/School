@@ -16,9 +16,16 @@
    the other registers are shown in the image in the zip file along with the assembly code
    */
 
+<<<<<<< HEAD
 int main(){
 	int i;
 	for (i = 0; i <= 25; i++){
 		printf("\nSeptember is hot in Chicago this year");
 	}
+=======
+		int i=0;
+		for (i = 0; i <= 25; i++){
+				printf("\nSeptember is hot in Chicago this year");
+		}
+>>>>>>> 63232d760d4975a121e3c040849bcd7436b5c973
 }
