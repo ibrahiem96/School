@@ -1,0 +1,40 @@
+/*Assignment: Homework 3
+  Name: Ibrahiem Mohammad
+  Net-ID: imoham3
+  Date Due: 9/17/15
+*/
+
+/* ANSWERS
+   BLANKS:
+   long x = 0x01
+   long result = 0;
+   for (mask = 0; mask != 22; mask = mask+1, x = x << 3)
+   result |= 0xDEADBEEF & x;
+
+   1) x is stored in the register %ecx
+      result is stored in %esi
+      mask is stored in %edx
+
+   2) The program initializes 3 long integers. Then it initializes a for loop which compares mask with 22 (if mask is 22 the loop exits). If mask is not 22 then you enter the loop and result is equal to that constant and x which is "ored" with the previous value of result. Then x is shifted left by 3 and mask is incremented by 1. Lastly the result printed.
+*/
+
+
+#include<stdio.h>
+
+int main() {
+
+	long x = 0x01;
+
+	long result = 0;
+
+	long mask;
+
+ 	for (mask = 0; mask != 22; mask = mask+1, x = x << 3) {
+   		
+		result |= 0xDEADBEEF & x;
+
+ 	}
+
+	printf("result %lx\n",result);
+
+ }
