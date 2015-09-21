@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*Assignment: Project 2
   Name: Ibrahiem Mohammad
@@ -99,8 +100,6 @@ void stk_reset(stack* st){
 
 int main(int argc, char** argv){
 
-	//get user input using fgets-each line is less than 300 characters, but array can be of infinite size (that's why we are growing the array)
-	//if input contains only q/Q quit program
 
 	stack st1; //instance of stack
 	
@@ -108,36 +107,14 @@ int main(int argc, char** argv){
 	
 	printf("\nTop of stack value: %d", st1.top);
 
-/*	stk_push(&st1, 'e');
-       	printf("\ntop item val: %c", stk_get_top(&st1));	
-     	printf("\ntop val: %d", st1.top);	
-	stk_push(&st1, '$');
-	printf("\ntop item val: %c", stk_get_top(&st1));	
-       	printf("\ntop val: %d", st1.top);	
-	stk_push(&st1, 'b');
-	printf("\ntop item val: %c", stk_get_top(&st1));	
- 	printf("\ntop val: %d", st1.top);	
-	stk_pop(&st1);
-	printf("\ntop item val: %c", stk_get_top(&st1));	
-	printf("\ntop val: %d", st1.top);	
-	stk_push(&st1, '*');
-	printf("\ntop item val: %c", stk_get_top(&st1));	
- 	printf("\ntop val: %d", st1.top);	
-	stk_push(&st1, '%');
-	printf("\ntop item val: %c", stk_get_top(&st1));	
- 	printf("\ntop val: %d", st1.top);	
-	stk_push(&st1, '^');
-	printf("\ntop item val: %c", stk_get_top(&st1));	
- 	printf("\ntop val: %d", st1.top);	
-	
-
-
-	stk_print(&st1);
-
-*/
-
-	//TODO:add debug info
-
+	printf("\nThe Command Line Arguments are: ");
+	int x;
+	for (x = 0; x < argc; x++){
+		if(strcmp(argv[x], "-d")==0){
+			debug = 1;
+			printf"\nFlag -d entered:");
+		}
+	}
 
 	printf("\nEnter a series of symbols from the following list, less than 300 characters long: { [ ( < > ) ] }. In order to be balanced, each opening symbol must have a closing symbol (order matters). This program will tell you whether or not the symbols you entered are balanced.\nEnter q or Q to exit.\n");
 	
@@ -148,69 +125,66 @@ int main(int argc, char** argv){
 	int i;	
 	for (i = 0; i < sizeof(symb_array); i++){
 		if (symb_array[i]=='q'||symb_array[i]=='Q') exit(1);
-  		char c = symb_array[i];	
-		if (c=='{'||c=='['||c=='('||c=='<'){
-			stk_push(&st1, c);
+
+		if (symb_array[i]=='{'||symb_array[i]=='['||symb_array[i]=='('||symb_array[i]=='<'){
+			stk_push(&st1, symb_array[i]);
 		}
-		if (c=='}'){
-			printf("\nCHKPT 1");
+		else if (symb_array[i]=='}'){
 			if(stk_check_if_empty(&st1)==1){
 				printf("\nString is unbalanced");
 				printf("\n%s", symb_array);
 				return 0;
 			}
-			else if (st1.darr[st1.top]==c){
+			else if (st1.darr[st1.top]==symb_array[i]){
 				stk_pop(&st1);
 				if (symb_array[i+1]=='\0'){
 					printf("\n%s", symb_array);
 				}
+			}
+		}
+		else if (symb_array[i]==']'){
+			if(stk_check_if_empty(&st1)==1){
+				printf("\nString is unbalanced");
+				printf("\n%s", symb_array);
+				return 0;
+			}
+			else if (st1.darr[st1.top]==symb_array[i]){
+				stk_pop(&st1);
+				if (symb_array[i+1]=='\0'){
+					printf("\n%s", symb_array);
+				}
+			
 			}
 
 		}
-		if (c==']'){
+
+		else if (symb_array[i]==')'){
 			if(stk_check_if_empty(&st1)==1){
 				printf("\nString is unbalanced");
 				printf("\n%s", symb_array);
 				return 0;
 			}
-			else if (st1.darr[st1.top]==c){
+			else if (st1.darr[st1.top]==symb_array[i]){
 				stk_pop(&st1);
 				if (symb_array[i+1]=='\0'){
 					printf("\n%s", symb_array);
 				}
-			}
+			}	
 			
 		}
 
-		if (c==')'){
+		else if (symb_array[i]=='>'){
 			if(stk_check_if_empty(&st1)==1){
 				printf("\nString is unbalanced");
 				printf("\n%s", symb_array);
 				return 0;
 			}
-			else if (st1.darr[st1.top]==c){
+			else if (st1.darr[st1.top]==symb_array[i]){
 				stk_pop(&st1);
 				if (symb_array[i+1]=='\0'){
 					printf("\n%s", symb_array);
 				}
 			}
-			
-			
-		}
-
-		if (c=='>'){
-			if(stk_check_if_empty(&st1)==1){
-				printf("\nString is unbalanced");
-				printf("\n%s", symb_array);
-				return 0;
-			}
-			else if (st1.darr[st1.top]==c){
-				stk_pop(&st1);
-				if (symb_array[i+1]=='\0'){
-					printf("\n%s", symb_array);
-				}
-			}
-			
 		}	
 	}
 
