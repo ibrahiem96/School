@@ -163,9 +163,13 @@ int main(int argc, char** argv){
 				stk_pop(&st1);
 				if (symb_array[i+1]=='\0'){
 					printf("\n%s", symb_array);
+					printf("\nstring is balanced");
 				}
 			}
-
+			else {
+				//printf("\nString is unbalanced");
+			}
+			
 		}
 		if (c==']'){
 			if(stk_check_if_empty(&st1)==1){
@@ -177,7 +181,11 @@ int main(int argc, char** argv){
 				stk_pop(&st1);
 				if (symb_array[i+1]=='\0'){
 					printf("\n%s", symb_array);
+					printf("\nstring is balanced");
 				}
+			}
+			else {
+				//printf("\nString is unbalanced");
 			}
 			
 		}
@@ -192,9 +200,12 @@ int main(int argc, char** argv){
 				stk_pop(&st1);
 				if (symb_array[i+1]=='\0'){
 					printf("\n%s", symb_array);
+					printf("\nstring is balanced");
 				}
 			}
-			
+			else {
+				//printf("\nString is unbalanced");
+			}
 			
 		}
 
@@ -208,7 +219,11 @@ int main(int argc, char** argv){
 				stk_pop(&st1);
 				if (symb_array[i+1]=='\0'){
 					printf("\n%s", symb_array);
+					printf("\nstring is balanced");
 				}
+			}
+			else {
+				//printf("\nString is unbalanced");
 			}
 			
 		}	
