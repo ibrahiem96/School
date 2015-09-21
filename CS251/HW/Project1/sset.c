@@ -306,7 +306,8 @@ SSET *p;
 */
 /*SSET *sset_intersection(SSET *a, SSET *b) {
  
-  SSET *c;
+  SSET *c1;
+  SSET *c2;
 
   if(a == NULL||b == NULL) 
 	return NULL;
@@ -320,8 +321,9 @@ SSET *p;
 	  c->val = a->val;
 	  return sset_intersection(a->next, b);
   }
-  else if(a->val != b->val){
-	c->next = sset_intersection(a->next, b->next);
+  else if(b->val == a->val){
+	c->val = b->val;
+	return 
   }
   return c;
 }
@@ -354,13 +356,23 @@ SSET *sset_diff(SSET *a, SSET *b) {
   c1 = malloc(sizeof(SSET));
   c2 = malloc(sizeof(SSET));  
 
-  if(a->val != b->val){
+  while (a!=NULL){
+  	if(a->val != b->val){
 	  c1->val = a->val;
 	  return sset_diff(a->next, c1);
+	}
+	else {
+	return sset_diff(a->next, c1);
+	}
   }
-  else if(b->val != a->val){
-	c2->val = b->val;
+  while (b!=NULL){
+  	if(b->val != a->val){
+	  c1->val = b->val;
+	  return sset_diff(b->next, c2);
+	}
+	else {
 	return sset_diff(b->next, c2);
+	}
   }
   return sset_union(c1, c2);
 }
