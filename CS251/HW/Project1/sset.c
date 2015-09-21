@@ -67,7 +67,7 @@ static SSET *from_sorted_array(int *a, int n) {
 
 	SSET *sorted_list;
 
-	sorted_list = (SSET*) malloc (sizeof(SSET) * n);
+	sorted_list =malloc (sizeof(SSET) * n);
 
 	int i;
 	for (i = 0; i < (n-1); i++){
@@ -168,8 +168,6 @@ void sset_free(SSET *s) {
 		sset_free(s->next);
 	}
 	free(s);
-
-
 }
 
 /**
@@ -424,7 +422,21 @@ int *sset_toarray(SSET *a) {
 *                recursive
 */
 int sset_cmp(const void *a, const void *b){
-  return 0;  // placeholder
+
+	SSET* p = (SSET*)a;
+	SSET* q = (SSET*)b;
+
+	if (p->val == q->val){
+		if(p->next != NULL && q->next != NULL){
+			return sset_cmp(p->next, q->next);
+		}
+		else{
+			return -1;
+		}
+	}
+	else{
+		return (p->val) - (q->val);
+	}
 }
 
 
@@ -441,8 +453,7 @@ int sset_cmp(const void *a, const void *b){
 * Hint:  you need to get sset_cmp working first
 */
 void sset_sort_sets(SSET * sets[], int n) {
-
-
+	qsort(sets, n, sizeof(SSET), sset_cmp);
 }
   
 int main() {
@@ -451,11 +462,25 @@ int main() {
   SSET *s2;
 
   int a[] = {2, 8, 1, 3, 1, 8, 0, 4};
-  int b[] = {1, 7, 4, 8, 3, 2};
-//  s = sset_from_array(a, 8);
-//  s2 = sset_from_array(b, 6);
+  int b[] = {1, 7, 4, 8, 3, 2, 0, 1};
+  s = sset_from_array(a, 8);
+  s2 = sset_from_array(b, 6);
+ 
   SSET* p;
-  p = sset_diff(s, s2);
+  p = sset_intersection(s, s2);
   sset_display(p);
+
+  SSET* q;
+  q = sset_diff(s, s2);
+  sset_display(q);
+
+  int result;
+  result = sset_cmp(s, s2);
+
+  printf("\n%d", result);
+
+  SSET* array_sets[] = {s, s2};
+
+  sset_sort_sets(array_sets, 2); 
 
 }
