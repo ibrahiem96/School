@@ -304,30 +304,30 @@ SSET *p;
 * Requirements:  linear time
 *                recursive
 */
-/*SSET *sset_intersection(SSET *a, SSET *b) {
- 
-  SSET *c1;
-  SSET *c2;
+SSET *sset_intersection(SSET *a, SSET *b) {
 
-  if(a == NULL||b == NULL) 
-	return NULL;
+  SSET *c;
 
-  sset_from_array(a, sizeof(a));
-  sset_from_array(b, sizeof(b));
-  
+  if(a == NULL) 
+    return NULL;
+  if(b == NULL) 
+    return NULL;
+    
   c = malloc(sizeof(SSET));
-  
-  if(a->val == b->val){
-	  c->val = a->val;
-	  return sset_intersection(a->next, b);
+  if(a->val < b->val){
+    c = sset_intersection(a->next, b); 
   }
-  else if(b->val == a->val){
-	c->val = b->val;
-	return 
+  else if(a->val > b->val){
+    c = sset_intersection(a, b->next);
+  }
+  else {
+    c->val = a->val;
+    c->next = sset_intersection(a->next, b->next);
   }
   return c;
 }
-*/
+
+
 /**
 * Function:  sset_diff
 * Status:  TODO
@@ -342,39 +342,26 @@ SSET *p;
 *                recursive
 *
 */
-SSET *sset_diff(SSET *a, SSET *b) {
+SSET *sset_diff(SSET *a, SSET *b){
+  SSET *c;
 
-  SSET *c1;
-  SSET *c2;
+  if(a == NULL) 
+    return NULL;
+  if(b == NULL) 
+    return sset_clone(a);
 
-  if(a == NULL||b == NULL) 
-	return NULL;
-
- // sset_from_array(a, sizeof(a));
- // sset_from_array(b, sizeof(b));
-  
-  c1 = malloc(sizeof(SSET));
-  c2 = malloc(sizeof(SSET));  
-
-  while (a!=NULL){
-  	if(a->val != b->val){
-	  c1->val = a->val;
-	  return sset_diff(a->next, c1);
-	}
-	else {
-	return sset_diff(a->next, c1);
-	}
+  c = malloc(sizeof(SSET));
+  if(a->val < b->val){
+    c->val = a->val;
+    c->next = sset_diff(a->next, b);
   }
-  while (b!=NULL){
-  	if(b->val != a->val){
-	  c1->val = b->val;
-	  return sset_diff(b->next, c2);
-	}
-	else {
-	return sset_diff(b->next, c2);
-	}
+  else if(a->val > b->val){
+    c = sset_diff(a, b->next);
   }
-  return sset_union(c1, c2);
+  else {
+    c = sset_diff(a->next, b->next);
+  }
+  return c;
 }
 
 /**
@@ -457,4 +444,18 @@ void sset_sort_sets(SSET * sets[], int n) {
 
 
 }
-  	
+  
+int main() {
+
+  SSET *s;
+  SSET *s2;
+
+  int a[] = {2, 8, 1, 3, 1, 8, 0, 4};
+  int b[] = {1, 7, 4, 8, 3, 2};
+//  s = sset_from_array(a, 8);
+//  s2 = sset_from_array(b, 6);
+  SSET* p;
+  p = sset_diff(s, s2);
+  sset_display(p);
+
+}
