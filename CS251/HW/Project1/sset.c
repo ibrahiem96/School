@@ -305,7 +305,7 @@ SSET *p;
 *                recursive
 */
 SSET *sset_intersection(SSET *a, SSET *b) {
-
+ 
   SSET *c;
 
   if(a == NULL||b == NULL) 
@@ -316,12 +316,12 @@ SSET *sset_intersection(SSET *a, SSET *b) {
   
   c = malloc(sizeof(SSET));
   
-  while(b != '\0'){
-    if(a->val == b->val){
-	  a->val = c->val;
-	  c->next = sset_intersection(a->next, b);
-    }
-    b = b->next;
+  if(a->val == b->val){
+	  c->val = a->val;
+	  return sset_intersection(a->next, b);
+  }
+  else if(a->val != b->val){
+	c->next = sset_intersection(a->next, b->next);
   }
   return c;
 }
@@ -352,12 +352,12 @@ SSET *sset_diff(SSET *a, SSET *b) {
   
   c = malloc(sizeof(SSET));
   
-  while(b != '\0'){
-    if(a->val != b->val){
-	  a->val = c->val;
-	  c->next = sset_difference(a->next, b);
-    }
-    b = b->next;
+  if(a->val != b->val){
+	  c->val = a->val;
+	  return sset_diff(a->next, b);
+  }
+  else if(a->val == b->val){
+	c->next = sset_diff(a->next, b->next);
   }
   return c;
 }
