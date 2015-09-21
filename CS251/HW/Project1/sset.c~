@@ -361,7 +361,6 @@ SSET *sset_diff(SSET *a, SSET *b) {
   }
   return c;
 }
-
 /**
 * Function  sset_toarray
 * Status:  TODO
