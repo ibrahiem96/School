@@ -235,7 +235,7 @@ int sset_contains(SSET *s, int x) {
 		s = s->next;
 	}
 
-	if(a != 1){
+	if(i != 1){
 		return 1;
 	}
 	else {
@@ -304,15 +304,15 @@ SSET *p;
 * Requirements:  linear time
 *                recursive
 */
-SSET *sset_intersection(SSET *a, SSET *b) {
+/*SSET *sset_intersection(SSET *a, SSET *b) {
  
   SSET *c;
 
   if(a == NULL||b == NULL) 
 	return NULL;
 
-  sset_from_array(a);
-  sset_from_array(b);
+  sset_from_array(a, sizeof(a));
+  sset_from_array(b, sizeof(b));
   
   c = malloc(sizeof(SSET));
   
@@ -325,7 +325,7 @@ SSET *sset_intersection(SSET *a, SSET *b) {
   }
   return c;
 }
-
+*/
 /**
 * Function:  sset_diff
 * Status:  TODO
@@ -342,24 +342,27 @@ SSET *sset_intersection(SSET *a, SSET *b) {
 */
 SSET *sset_diff(SSET *a, SSET *b) {
 
-  SSET *c;
+  SSET *c1;
+  SSET *c2;
 
   if(a == NULL||b == NULL) 
 	return NULL;
 
-  sset_from_array(a);
-  sset_from_array(b);
+ // sset_from_array(a, sizeof(a));
+ // sset_from_array(b, sizeof(b));
   
-  c = malloc(sizeof(SSET));
-  
+  c1 = malloc(sizeof(SSET));
+  c2 = malloc(sizeof(SSET));  
+
   if(a->val != b->val){
-	  c->val = a->val;
-	  return sset_diff(a->next, b);
+	  c1->val = a->val;
+	  return sset_diff(a->next, c1);
   }
-  else if(a->val == b->val){
-	c->next = sset_diff(a->next, b->next);
+  else if(b->val != a->val){
+	c2->val = b->val;
+	return sset_diff(b->next, c2);
   }
-  return c;
+  return sset_union(c1, c2);
 }
 
 /**
@@ -380,7 +383,7 @@ int *sset_toarray(SSET *a) {
 		i++;
 	}
   
-  	return arr;
+  	return array;
 }
 
 /**

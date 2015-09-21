@@ -342,7 +342,8 @@ SSET *sset_intersection(SSET *a, SSET *b) {
 */
 SSET *sset_diff(SSET *a, SSET *b) {
 
-  SSET *c;
+  SSET *c1;
+  SSET *c2;
 
   if(a == NULL||b == NULL) 
 	return NULL;
@@ -350,16 +351,18 @@ SSET *sset_diff(SSET *a, SSET *b) {
   sset_from_array(a);
   sset_from_array(b);
   
-  c = malloc(sizeof(SSET));
-  
+  c1 = malloc(sizeof(SSET));
+  c2 = malloc(sizeof(SSET));  
+
   if(a->val != b->val){
-	  c->val = a->val;
-	  return sset_difference(a->next, b);
+	  c1->val = a->val;
+	  return sset_diff(a->next, c1);
   }
-  else if(a->val == b->val){
-	c->next = sset_difference(a->next, b->next);
+  else if(b->val != a->val){
+	c2->val = b->val;
+	return sset_diff(b->next, c2);
   }
-  return c;
+  return sset_union(c1, c2);
 }
 
 /**
