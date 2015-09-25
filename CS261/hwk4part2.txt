@@ -1,0 +1,11 @@
+Name: Ibrahiem Mohammad
+
+For part 2, we know that when the program calls fib(2), the stack will have gone through the following changes:
+
+----TOP----
+fib(1)
+fib(2)
+fib(3)
+fib(4)
+fib(5)
+----BOTTOM----
