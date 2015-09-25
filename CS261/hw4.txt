@@ -1,10 +1,10 @@
 	movslq  %edi, %rdi	//moves 4 bytes from rdi to edi
         movslq  %esi, %rsi	//moves 4 bytes from rsi to esi (this and the above 				instruction are probably a result of the optimizer)  
         movq    (%rcx), %rcx	//move 4 bytes from rcx to rcx
-        leaq    (%rdi,%rdi,2), %rax	//(rdi+2*rdi+4)
+        leaq    (%rdi,%rdi,2), %rax	//($rdi+$rdi*2+4)
         movslq  %edx, %rdx	//move 4 bytes from rdx to edx
         addq    %rax, %rsi	//add 4 byte
-        leaq    (%rdx,%rsi,4), %rax
-        movq    %rcx, A(,%rax,8)
-        movl    $960, %eax
+        leaq    (%rdx,%rsi,4), %rax	//($rdx+$rsi*4+4)
+        movq    %rcx, A(,%rax,8)	//($rax*8+A)
+        movl    $960, %eax	//
         ret
