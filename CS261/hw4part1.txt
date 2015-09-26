@@ -1,3 +1,5 @@
+Name: Ibrahiem Mohammad
+
 	movslq  %edi, %rdi	//moves 4 bytes from edi to rdi. Assume rdi is h 				because it is the first argument.
         movslq  %esi, %rsi	//moves 4 bytes from esi to rsi. Assume rsi is i 				because it is the second argument. 
  

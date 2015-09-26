@@ -2,15 +2,16 @@ Name: Ibrahiem Mohammad
 
 For part 2, we know that when the program calls fib(2), the stack will have gone through the following changes:
 
+call fib(5)
 ----TOP----
-fib(1)
+fib(1)  
 fib(2)
 fib(3)
 fib(4)
-fib(5)
+fib(5)		//argument val = 5; loval variable = 5; 
 ----BOTTOM----
 
-
+call fib(2)
 ----TOP----
 fib(0)
 fib(2)
@@ -19,7 +20,7 @@ fib(4)
 fib(5)
 ----BOTTOM----
 
-
+call fib(3)
 ----TOP----
 fib(1)
 fib(3)
@@ -27,7 +28,7 @@ fib(4)
 fib(5)
 ----BOTTOM----
 
-
+call fib(4)
 ----TOP----
 fib(1)
 fib(2)
@@ -35,7 +36,7 @@ fib(4)
 fib(5)
 ----BOTTOM----
 
-
+call fib(2)
 ----TOP----
 fib(0)
 fib(2)
@@ -43,7 +44,7 @@ fib(4)
 fib(5)
 ----BOTTOM----
 
-
+call fib(5)
 ----TOP----
 fib(1)
 fib(2)
@@ -51,7 +52,7 @@ fib(3)
 fib(5)
 ----BOTTOM----
 
-
+call fib(2)
 ----TOP----
 fib(0)
 fib(2)
@@ -59,8 +60,18 @@ fib(3)
 fib(5)
 ----BOTTOM----
 
-
+What remains in stack after fib(2) has been called
 ----TOP----
-fib(3)
-fib(5)
+fib(3) 
+fib(5) 			//argument val = 2 (because the next fib has not been called yet)
 ----BOTTOM----
+
+
+Drawing of stack right after fib(2) is called:
+
+|_____rsp--stack pointer/return address_____|     					
+|					fib						|
+|				return value				|
+|				arg value = 2				|
+|            		main					|
+|_____________base pointer__________________|
