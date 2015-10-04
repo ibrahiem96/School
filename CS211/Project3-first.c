@@ -19,6 +19,17 @@ typedef struct tokenStruct
  int       val;
 } token;
 
+typedef struct stack_struct
+{
+ int top;
+ 
+
+
+typedef struct operator_stack
+{
+ int isEmpty; 
+
+
 token getInputToken (FILE *in);
 
 void processExpression (token inputToken, FILE *in)
