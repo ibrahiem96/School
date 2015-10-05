@@ -20,150 +20,98 @@ typedef struct tokenStruct
 } token;
 
 //value stack struct
-typedef struct llist_stack
+typedef struct stack_struct
 {
-  int top;
-  struct llist_stack *next;
+  int data;
+  struct stack_struct *next_node;
 
-} llstack;
+} stack;
 
-void init(llstack* head){
-  head = NULL;
+void init(stack* node){
+  node = NULL;
 }
 
-int isEmpty(llstack* head){
 
-  if (head == NULL){
+void push(stack* node, int val)
+{
+  
+  stack *p = (struct stack_struct*)malloc(sizeof(struct stack_struct));
+
+
+  if (isEmpty(p)==1)
+  {
+    exit(0);
+  }
+
+  p->next_node = node;
+  p->data = val;
+  node = p;
+
+}
+
+void pop(stack* node)
+{
+
+  stack *p = node;
+
+  if (isEmpty(p)==1)
+  { 
+    exit(0);
+  }
+
+  p = p->next_node;
+  free(node);
+  node = p;
+
+}
+
+int data (stack* node)
+{
+
+  return node->data;
+
+}
+
+int eval(int var1, char op, int var2)
+{
+
+  if (op=='+')
+  {
+    return var1+var2;
+  }
+  else if (op=='-')
+  {
+    return var2-var1;
+  }
+  else if (op=='*')
+  {
+    return var1*var2;
+  }
+  else if (op=='/')
+  {
+    return var2/var1;
+  }
+
+  else
+  {
+    printf("\nERROR");
+    return -999;
+  }
+}
+
+
+int isEmpty(stack* node)
+{
+
+  if (node == NULL)
+  {
     return 1;
   }
-  else {
+  else 
+  {
     return 0;
   }
 
-}
-
-void push(llstack* head, int val){
-  
-  llstack *temp = (struct llist_stack*)malloc(sizeof(struct llist_stack));
-
-
-  if (isEmpty(temp)==1){
-    exit(0);
-  }
-
-  temp->next = head;
-  temp->top = val;
-  head = temp;
-
-}
-
-void pop(llstack* head){
-
-  llstack *temp = head;
-
-  if (isEmpty(temp)==1){ 
-    exit(0);
-  }
-
-  temp = temp->next;
-  free(head);
-  head = temp;
-
-}
-
-int top (llstack* head){
-
-  return head->top;
-
-}
-
-int eval(int v1, char op, int v2){
-
-  if (op=='+'){
-    return v1+v2;
-  }
-  else if (op=='-'){
-    return v2-v1;
-  }
-  else if (op=='*'){
-    return v1*v2;
-  }
-  else if (op=='/'){
-    return v2/v1;
-  }
-
-  else{
-    printf("\n Operator is not valid.");
-    return -999;
-  }
-}
-
-llstack concatLists(llstack *st1, llstack *st2){
-
-  if (st1==NULL){
-    return *st2;
-  }
-  else if (st2==NULL){
-    return *st1;
-  }
-
-  llstack *temp = st1;
-
-  while (st1->next!=NULL){
-    st1 = st1->next;
-    st1->next = st2;
-  }
-
-  return *st1;
-}
-
-llstack toPostFix(llstack *head){
-
-  llstack *temp;
-  llstack *temp2;
-  char token;
-  int i = 0;
-  
-  while (head->next!=NULL){
-    token = head->top;
-    //checks if token is a number
-    if (isalnum(token)!=0 && isdigit(token)!=0){
-      continue;
-    }
-    //checks if token is a symbol
-    else if (isalnum(token)!=0 && isdigit(token)==0){
-      temp->top = token;
-      temp = temp->next;
-
-      temp2 = head->next;
-      free(head);
-      head = temp2;
-    }
-  }
-
-  concatLists(head, temp);
-
-  return head;
-
-}
-
-int popAndEval(llstack *val_stack, llstack *op_stack){
-
-  if (isEmpty(val_stack)==1){
-    printf("\nStack Empty");
-    return -999;
-  }
-
-  char op = top(op_stack);
-  pop(op_stack);
-
-  int v2 = top(val_stack);
-  pop(val_stack);
-
-  int v1 = top(val_stack);
-  pop(val_stack);
-
-  int v3 = eval(v1, op, v2);
 }
 
 token getInputToken (FILE *in);
@@ -171,11 +119,32 @@ token getInputToken (FILE *in);
 void processExpression (token inputToken, FILE *in)
 {
  /**********************************************/
- llstack *val_stack;
- llstack *op_stack;
+ stack *val;
+ stack *op;
 
- init(val_stack);
- init(op_stack);
+ init(val);
+ init(op);
+
+ int popAndEval(stack *val, stack *op)
+{
+
+  if (isEmpty(val)==1)
+  {
+    printf("\nStack Empty");
+    return -999;
+  }
+
+  char op = data(op);
+  pop(op);
+
+  int var2 = data(val);
+  pop(val);
+
+  int var1 = data(val);
+  pop(val);
+
+  int v3 = eval(var1, op, var2);
+}
 
  /* Loop until the expression reaches its End */
  while (inputToken.type != EOLN)
@@ -185,30 +154,39 @@ void processExpression (token inputToken, FILE *in)
        /* make this a debugMode statement */
        printf ("OP:%c, " ,inputToken.op);
 
-      if (inputToken.op=='('){
-        push(op_stack, inputToken.op);
+      if (inputToken.op=='(')
+      {
+        push(op, inputToken.op);
       }
-      if (inputToken.op=='+' || inputToken.op=='-'){
-        while (isEmpty(op_stack)==0 && (op_stack->top=='+' || op_stack->top=='-' || op_stack->top=='*' || op_stack->top=='/')){
-          popAndEval(op_stack, val_stack);
+      if (inputToken.op=='+' || inputToken.op=='-')
+      {
+        while (isEmpty(op)==0 && (op->data=='+' || op->data=='-' || op->data=='*' || op->data=='/'))
+        {
+          popAndEval(op, val);
         }
-        push(op_stack, inputToken.op);
+        push(op, inputToken.op);
       }
-      if (inputToken.op=='*' || inputToken.op=='/'){
-        while (isEmpty(op_stack)==0 && (op_stack->top=='*' || op_stack->top=='/')){
-          popAndEval(op_stack, val_stack);
+      if (inputToken.op=='*' || inputToken.op=='/')
+      {
+        while (isEmpty(op)==0 && (op->data=='*' || op->data=='/'))
+        {
+          popAndEval(op, val);
         }
-        push(op_stack, inputToken.op);
+        push(op, inputToken.op);
       }
-      if (inputToken.op==')'){
-        while (isEmpty(op_stack)==0 && op_stack->top!='('){
-          popAndEval(op_stack, val_stack);
+      if (inputToken.op==')')
+      {
+        while (isEmpty(op)==0 && op->data!='(')
+        {
+          popAndEval(op, val);
         }
-        if (isEmpty(op_stack)==1){
+        if (isEmpty(op)==1)
+        {
           printf("\nOperator stack empty");
         }
-        else{
-          pop(op_stack);
+        else
+        {
+          pop(op);
         }
       }
     }
@@ -219,24 +197,19 @@ void processExpression (token inputToken, FILE *in)
        /* make this a debugMode statement */
        printf ("Val: %d, ", inputToken.val); 
 
-       push(val_stack, inputToken.val);
+       push(val, inputToken.val);
         
       }
    
-    /* get next token from input */
+    /* get next_node token from input */
     inputToken = getInputToken (in);
    } 
 
  /* The expression has reached its end */
 
- while (isEmpty(op_stack)==0){
-  popAndEval(op_stack, val_stack);
- }
-
- printf("\n top val at stack: %d", val_stack->top);
-
- if (val_stack!=NULL){
-  printf("\nNot empty");
+ while (isEmpty(op)==0)
+ {
+  popAndEval(op, val);
  }
 
  printf ("\n");
@@ -319,7 +292,7 @@ token getInputToken (FILE *in)
  return retToken;
 }
 
-/* Clear input until next End of Line Character - \n */
+/* Clear input until next_node End of Line Character - \n */
 void clearToEoln(FILE *in)
 {
  int ch;
