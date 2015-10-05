@@ -4,9 +4,12 @@
  *  Date: 10/3/2015
  */
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+int Debug = 5;
 
 typedef enum {FALSE = 0, TRUE, NO = 0, YES} boolean;
 
@@ -54,6 +57,8 @@ void push(llstack* head, int val){
 
   temp->next = head;
   temp->top = val;
+  if (Debug == 1){
+    printf("Debugging Info: \n pushed value: %d", temp->top);
   head = temp;
 
 }
@@ -66,6 +71,9 @@ void pop(llstack* head){
     exit(0);
   }
 
+  if (Debug == 1){
+    printf("Debugging Info: \n popped value: %d", head->top);
+  }
   temp = temp->next;
   free(head);
   head = temp;
@@ -82,15 +90,27 @@ int top (llstack* head){
 int eval(int v1, char op, int v2){
 
   if (op=='+'){
+    if (Debug == 1){
+    printf("Debugging Info: \n evaluated expression: %d", v2+v1);
+    }
     return v1+v2;
   }
   else if (op=='-'){
+    if (Debug == 1){
+    printf("Debugging Info: \n evaluated expression: %d", v2-v1);
+    }
     return v2-v1;
   }
   else if (op=='*'){
+    if (Debug == 1){
+    printf("Debugging Info: \n evaluated expression: %d", v2*v1);
+    }
     return v1*v2;
   }
   else if (op=='/'){
+    if (Debug == 1){
+    printf("Debugging Info: \n evaluated expression: %d", v2/v1);
+    }
     return v2/v1;
   }
 
@@ -124,6 +144,9 @@ token getInputToken (FILE *in);
 void processExpression (token inputToken, FILE *in)
 {
  /**********************************************/
+
+ printf("\nworks");
+
  llstack *val_stack;
  llstack *op_stack;
 
@@ -293,7 +316,11 @@ void printCommands()
 
 int main (int argc, char **argv)
 {
-
+ if (argc > 1){
+   if (strcmp(argv[1], "-d")==0){
+     Debug = 1;
+  }
+ }
  char *input;
  token inputToken;
 
