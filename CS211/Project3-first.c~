@@ -77,7 +77,7 @@ int top (llstack* head){
 
 }
 
-int eval(int v1, int v2, char op){
+int eval(int v1, char op, int v2){
 
   if (op=='+'){
     return v1+v2;
@@ -176,7 +176,7 @@ int popAndEval(llstack *val_stack, llstack *op_stack){
   int v1 = top(val_stack);
   pop(val_stack);
 
-  int v3 = eval(v1, v2, op);
+  int v3 = eval(v1, op, v2);
 }
 
 token getInputToken (FILE *in);

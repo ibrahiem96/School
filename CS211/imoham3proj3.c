@@ -19,13 +19,14 @@ typedef struct tokenStruct
  int       val;
 } token;
 
-//value stack struct
+
 typedef struct llist_stack
 {
   int top;
   struct llist_stack *next;
 
 } llstack;
+
 
 void init(llstack* head){
   head = NULL;
@@ -77,6 +78,7 @@ int top (llstack* head){
 
 }
 
+//operation to evaluate postfix expression
 int eval(int v1, char op, int v2){
 
   if (op=='+'){
@@ -96,55 +98,6 @@ int eval(int v1, char op, int v2){
     printf("\n Operator is not valid.");
     return -999;
   }
-}
-
-llstack concatLists(llstack *st1, llstack *st2){
-
-  if (st1==NULL){
-    return *st2;
-  }
-  else if (st2==NULL){
-    return *st1;
-  }
-
-  llstack *temp = st1;
-
-  while (st1->next!=NULL){
-    st1 = st1->next;
-    st1->next = st2;
-  }
-
-  return *st1;
-}
-
-llstack toPostFix(llstack *head){
-
-  llstack *temp;
-  llstack *temp2;
-  char token;
-  int i = 0;
-  
-  while (head->next!=NULL){
-    token = head->top;
-    //checks if token is a number
-    if (isalnum(token)!=0 && isdigit(token)!=0){
-      continue;
-    }
-    //checks if token is a symbol
-    else if (isalnum(token)!=0 && isdigit(token)==0){
-      temp->top = token;
-      temp = temp->next;
-
-      temp2 = head->next;
-      free(head);
-      head = temp2;
-    }
-  }
-
-  concatLists(head, temp);
-
-  return head;
-
 }
 
 int popAndEval(llstack *val_stack, llstack *op_stack){
