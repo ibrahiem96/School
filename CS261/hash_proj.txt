@@ -1,0 +1,27 @@
+JUMBLE
+
+ask user to enter a series of jumbled letters (no specific strlen given)
+OR
+enter a period to terminate program (before terminating, print out the stats of
+the Hashmap and 
+
+[is there a need to remove duplicates?]
+give a list of possible real english words (limit?)
+- can be in any order
+- if no matches found, give "no matches"
+
+*everything converted to lower-case*
+
+HINTS
+- build a sorted dictionary hashmap
+- same letters, different frequencies of letters?
+
+- take in word
+- sort the word (a-z)
+- give all possible rearrangements of the sorted word.
+
+
+
+
+
+implement given hashmap first

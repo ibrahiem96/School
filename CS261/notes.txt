@@ -1,0 +1,43 @@
+notes
+
+in pipeline, all stages of a cycle must take same amount of time, so each stage will take the largest amount of time that is needed by a particular stage
+
+gen eq: pipeline overhead + cycletime * # of instructions
+
+for sequential its cycle time *
+
+Val E = 10 bytes
+Val C = 8 bytes
+ifun:icode = 1 byte
+rA:rB = 1 byte 
+
+load use stalls for 1 cycle
+ret stalls for 3 cycles
+mispredct stalls for 2 cycles
+
+what can i do other than loop unrolling:
+
+- take out function from loop condition
+- eliminate mem reference by replacing *dest with local variable
+- eliminate function call inside of loop
+- pointer arithmetic instead of array notation
+
+know code descriptions for all instructions
+path forwarding
+know all instruction translations from x86 to y86
+hcl descriptions for all instructions
+
+know vector data type and memorize those functions
+accumulators
+code optimization
+
+
+cycle calculations
+speedup
+
+for ir we wait until WB
+for mr we wait until M
+for rm 
+for rr 
+
+accumulators and loop unrolling

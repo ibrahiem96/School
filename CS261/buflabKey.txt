@@ -1,0 +1,11 @@
+address of function smoke() = 08048c28
+
+ebp address = 0x556839e0  
+
+00 e8 40 80
+
+smoke() 08048c28	
+
+63 88 04 80
+
+fizz() 08048c52 

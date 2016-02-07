@@ -1,0 +1,143 @@
+stack or queue algorithm
+
+queue array algorithm:
+
+create an array
+array will start at index front
+array will end at index back
+elements between is queue
+
+element added at rear (enqueue)
+element removed from front
+	simply increment front (dequeue)
+	but maybe free afterwards?
+
+int A[10]
+front <-- -1
+back <-- -1
+
+isEmpty()
+{
+if front == -1 && rear == -1
+	return true
+else
+	return false
+}
+
+enqueue()
+{
+if (back+1)%N==front
+	return
+else if isEmpty()
+	front <-- back <-- 0
+else
+	back <-- (back + 1) % N
+
+A[back] <-- x
+}
+
+Dequeue()
+{
+if isEmpty()
+	return
+else if front == back
+	front <-- back <-- -1
+else
+	//here value doesn't really matter, but you could free it
+	front <-- (front+1) % N + 1
+}
+
+front()
+{
+if isEmpty()
+	return
+
+return A[front]
+}
+circular array concept:
+
+current position = i
+next position = (i+1) % N
+previous position = (i + N - 1) % N
+
+
+
+queue linked list algorithm:
+
+one side can be picked for insertion (head or tail--this will be known as enqueue)
+
+removal side dequeue
+
+set temp = head
+traverse
+
+or we can have back and front pointers
+
+
+struct node{
+	int data
+	struct node next
+}
+
+struct node front = NULL
+struct node rear = NULL
+
+void enqueue(int x)
+{
+	struct node temp = malloc node
+
+	temp->data = x
+	temp->next = NULL
+	
+	if front == NULL && rear == NULL
+		front = rear = temp
+		return
+	
+	rear->next = temp
+	rear = temp
+
+}
+
+void dequeue()
+{
+
+	node temp = front
+	if front == NULL
+		return
+	if front == rear
+		front = rear = NULL
+	else
+		front = front->next
+
+	free temp
+
+
+
+
+
+
+linked-list or dynamic array implementation
+
+
+
+stack: top, pop, push, topandpop, isempty
+
+queue: is_empty, enqueue (add to front), dequeue, front (get front value),
+
+
+input:
+
+- numeric input (from stdin)
+- scanf EX: scanf("%d", &val);
+	    -------OR---------
+	    double fval;
+	    scanf("%f", &fval);
+
+- no strings
+
+
+queue w/ dynamic array
+
+_________________________
+|__|__|__|__|__|__|__|__|
+  0  1  2  3  4  5  6  7

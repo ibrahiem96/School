@@ -1,0 +1,25 @@
+Midterm 2
+
+Converting C to y86
+- study examples
+- know instructions
+- conditionals and jumps
+
+Converting x86 to y86
+- know all the instructions necessary to convert
+
+Sequential/Pipeline
+- understanding HCL code [!]
+- what happens at each stage
+- how to create the description table
+- stalls, which occurs at which point and why [!]
+- fixing stalls
+- nop
+- forwarding paths [!]
+- calculating cpi
+
+
+Code Optimization
+- loop unrolling
+- all other optimization techniques [!]
+- vector data type

